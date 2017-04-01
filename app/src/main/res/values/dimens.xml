@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="incoming_call_widget_small_circle_size">20.0dip</dimen>
+    <dimen name="incoming_call_widget_circle_size">56.0dip</dimen>
+    <dimen name="glowpadview_outerring_diameter">250.0dip</dimen>
+    <dimen name="layout_margin">20dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+</resources>

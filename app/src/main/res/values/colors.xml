@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00EE76</color>
+    <color name="colorPrimaryDark">#00EE76</color>
+    <color name="colorAccent">#6E7B8B</color>
+    <color name="colorTextTitle">#f0f0fa</color>
+    <color name="colorBackground">#3CB371</color>
+    <color name="glowpad_outer_ring_color">#26ffffff</color>
+    <color name="white">#fff</color>
+    <color name="darkWhite">#ede4e4e4</color>
+    <color name="incoming_call_widget_bitmap">#ffffffff</color>
+    <color name="incoming_call_decline_circle">#fff44336</color>
+</resources>
