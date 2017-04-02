@@ -34,16 +34,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_layout);
+        setContentView(R.layout.activity_main);
 
+        // todo: rename meaningful: inits -> initViews()
         inits();
         initComps();
-
-
     }
+
+    // remove unnesccesary func
     public static Context getContextOfApp(){
         return contextOfApp;
     }
+
     private void inits() {
         contextOfApp = getApplicationContext();
         ivSetting = (ImageView) findViewById(R.id.iv_setting);

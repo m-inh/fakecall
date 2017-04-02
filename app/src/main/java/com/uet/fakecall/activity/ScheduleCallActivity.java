@@ -28,11 +28,10 @@ import java.util.Locale;
 public class ScheduleCallActivity extends AppCompatActivity {
 
     private static final int FILE_SELECT = 1002;
-
     private static final int HANA_UP_AFTER = 15;
-
     private static final int DURATION = 63;
 
+    //todo: dont use default scope
     RadioGroup rdCallType;
     Button btnSetCallSchedule;
 
@@ -62,32 +61,24 @@ public class ScheduleCallActivity extends AppCompatActivity {
 
                 int timeSchedule = Integer.parseInt(String.valueOf(edtTimePicker.getText().toString()));
 
-
-
-
                 String duration = edtDurationInput.getText().toString();
                 String hangUpAfter = edtHangUpAfterInput.getText().toString();
 
                 if(nameCaller.equals("")){
-
                     nameCaller = getResources().getString(R.string.unknown);
                 }
-
                 if (duration.equals("")) {
-
                     duration = Integer.toString(DURATION);
-
                 }
-
                 if (hangUpAfter.equals("")) {
-
                     hangUpAfter = Integer.toString(HANA_UP_AFTER);
-
                 }
+
                 RadioButton radioButton = (RadioButton)findViewById(rdCallType.getCheckedRadioButtonId());
 
                 int radioButtonIndex = rdCallType.indexOfChild(radioButton);
 
+                // todo: pretty code
                 ContentResolver contentResolver = getContentResolver();
 
                 if (radioButtonIndex == 0) {
@@ -118,6 +109,7 @@ public class ScheduleCallActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 

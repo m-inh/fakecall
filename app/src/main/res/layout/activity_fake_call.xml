@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ringing_bg"
     android:id="@+id/main_layout">
+
     <RelativeLayout
         android:id="@+id/callInfoLayout"
         android:layout_width="match_parent"

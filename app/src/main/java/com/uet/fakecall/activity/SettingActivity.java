@@ -18,6 +18,7 @@ import com.uet.fakecall.MainActivity;
 import com.uet.fakecall.R;
 
 public class SettingActivity extends AppCompatActivity {
+
     private static final ComponentName LAUNCHER_COMPONENT_NAME = new ComponentName("com.uet.fakecall", "com.uet.fakecall.Launcher");
 
 

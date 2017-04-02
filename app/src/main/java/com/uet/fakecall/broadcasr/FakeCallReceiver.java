@@ -10,25 +10,23 @@ import com.uet.fakecall.MainActivity;
 
 
 public class FakeCallReceiver extends BroadcastReceiver {
+    // todo: don't use default scope
+    // just use private
     SharedPreferences appSettings;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         appSettings = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
 
+        // todo: numberToDial is constant
         String numberToDial = appSettings.getString("numberToDial", "111");
-
         String phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
 
         if (phoneNumber.equals(numberToDial)) {
-
             setResultData(null);
-
             Intent appIntent = new Intent(context, MainActivity.class);
-
             appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
             context.startActivity(appIntent);
-
         }
     }
 }

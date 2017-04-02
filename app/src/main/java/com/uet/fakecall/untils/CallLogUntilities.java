@@ -32,6 +32,7 @@ public class CallLogUntilities {
 
         values.put(CallLog.Calls.CACHED_NUMBER_LABEL, "");
 
+        // todo: add permission check
         contentResolver.insert(CallLog.Calls.CONTENT_URI, values);
 
     }

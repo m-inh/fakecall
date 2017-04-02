@@ -46,6 +46,7 @@ public class FakeCallRingerActivity extends AppCompatActivity {
     private static final int INCOMING_CALL_NOTIFICATION = 1001;
     private static final int MISSED_CALL_NOTIFICATION = 1002;
 
+    // todo: rename mp :(
     private MediaPlayer mp;
     private ImageButton ibCallActionButton;
     private ImageButton ibAnswer;
