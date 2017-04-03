@@ -46,50 +46,37 @@ public class FakeCallRingerActivity extends AppCompatActivity {
     private static final int INCOMING_CALL_NOTIFICATION = 1001;
     private static final int MISSED_CALL_NOTIFICATION = 1002;
 
-    // todo: rename mp :(
-    private MediaPlayer mp;
+    private MediaPlayer mediaPlayer;
     private ImageButton ibCallActionButton;
     private ImageButton ibAnswer;
     private ImageButton ibDecline;
     private ImageButton ibText;
     private ImageButton ibEndCall;
     private ImageView ivRing;
-
     private TextView callStatus;
     private TextView callDuration;
 
-
     private RelativeLayout mainLayout;
-
     private RelativeLayout callActionButtonsLayout;
 
     private AudioManager audioManager;
 
     private long secs;
-
     private int duration;
 
-
     private Ringtone ringtone;
-
     private Vibrator vibrator;
 
     private PowerManager.WakeLock wakeLock;
-
     private NotificationManager notificationManager;
 
     private ContentResolver contentResolver;
 
     private MediaPlayer voicePlayer;
-
     private Resources resources;
-
     private int currentRingerMode;
-
     private int currentRingerVolume;
-
     private String contactImageString;
-
     private int currentMediaVolume;
 
     private String callNumber;
@@ -103,8 +90,6 @@ public class FakeCallRingerActivity extends AppCompatActivity {
             finish();
         }
     };
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -258,21 +243,15 @@ public class FakeCallRingerActivity extends AppCompatActivity {
 
                         wakeLock.acquire();
 
-
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-
                                 long min = (secs % 3600) / 60;
-
                                 long seconds = secs % 60;
 
                                 String dur = String.format(Locale.US, "%02d:%02d", min, seconds);
-
                                 secs++;
-
                                 callDuration.setText(dur);
-
                                 handler.postDelayed(this, 1000);
 
                             }
@@ -287,33 +266,21 @@ public class FakeCallRingerActivity extends AppCompatActivity {
 
                         }, duration * 1000);
 
-
                     } else if ((x2 + 200) < x1) {
-
                         finish();
-
                     } else if ((y2 + 200) < y1) {
-
                         finish();
-
                     } else if ((y2 - 200) > y1) {
-
                         finish();
-
                     }
 
                 } else if (a == MotionEvent.ACTION_UP || a == MotionEvent.ACTION_CANCEL) {
 
                     ibAnswer.setVisibility(View.INVISIBLE);
-
                     ibDecline.setVisibility(View.INVISIBLE);
-
                     ibText.setVisibility(View.INVISIBLE);
-
                     ivRing.startAnimation(ringShrinkAnimation);
-
                     ibCallActionButton.setVisibility(View.VISIBLE);
-
                 }
 
                 return false;
@@ -326,8 +293,6 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         callStatus.startAnimation(animCallStatusPulse);
 
         callNumber = PhoneNumberUtils.formatNumber(callNumber, "ET");
-
-
         Uri ringtoneURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
 
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), ringtoneURI);
@@ -450,25 +415,16 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         notificationManager.cancel(INCOMING_CALL_NOTIFICATION);
 
         if (secs > 0) {
-
             incomingCall();
-
         } else {
-
             missedCall();
-
         }
 
         wakeLock.release();
-
         audioManager.setRingerMode(currentRingerMode);
-
         audioManager.setStreamVolume(AudioManager.STREAM_RING, currentRingerVolume, 0);
-
         stopRinging();
-
         unMuteAll();
-
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, currentMediaVolume, 0);
 
     }

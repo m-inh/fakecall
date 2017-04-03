@@ -2,8 +2,6 @@ package com.uet.fakecall.fragment;
 
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -27,11 +25,9 @@ import android.widget.Toast;
 import com.uet.fakecall.MainActivity;
 import com.uet.fakecall.R;
 import com.uet.fakecall.activity.ScheduleCallActivity;
-import com.uet.fakecall.broadcasr.FakeCallReceiver;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
 
 public class FakeCallFragment extends Fragment{
     public static final String FAKE_NAME = "Fake name";

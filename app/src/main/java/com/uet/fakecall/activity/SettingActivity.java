@@ -20,16 +20,13 @@ import com.uet.fakecall.R;
 public class SettingActivity extends AppCompatActivity {
 
     private static final ComponentName LAUNCHER_COMPONENT_NAME = new ComponentName("com.uet.fakecall", "com.uet.fakecall.Launcher");
-
+    private static final String NUMBER_TO_DIAL = "numberToDial";
+    private static final String REQUEST_STRING = "111";
 
     private Toolbar toolbar;
-
     private SharedPreferences appSettings;
-
     private SharedPreferences.Editor preferencesEditor;
-
     private Switch swShowIconSwitch;
-
     private EditText edtNumberToDialInput;
 
     @Override
@@ -45,17 +42,13 @@ public class SettingActivity extends AppCompatActivity {
         edtNumberToDialInput = (EditText) findViewById(R.id.edt_number_to_dial_input);
 
         appSettings = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-
         preferencesEditor = appSettings.edit();
 
         boolean showIcon = appSettings.getBoolean("showIcon", true);
-
-        String numberToDial = appSettings.getString("numberToDial", "111");
+        String numberToDial = appSettings.getString(NUMBER_TO_DIAL, REQUEST_STRING);
 
         swShowIconSwitch.setChecked(showIcon);
-
         edtNumberToDialInput.setEnabled(!showIcon);
-
         edtNumberToDialInput.setText(numberToDial);
     }
 
@@ -73,23 +66,17 @@ public class SettingActivity extends AppCompatActivity {
     public void onClickShowIcon(View view) {
 
         PackageManager packageManager = getPackageManager();
-
         boolean showIcon = swShowIconSwitch.isChecked();
 
         if (!showIcon) {
-
             packageManager.setComponentEnabledSetting(LAUNCHER_COMPONENT_NAME, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-
         } else {
-
             packageManager.setComponentEnabledSetting(LAUNCHER_COMPONENT_NAME, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-
         }
 
         Toast.makeText(this, "You may need to restart your launcher for action to take effect", Toast.LENGTH_SHORT).show();
 
         preferencesEditor.putBoolean("showIcon", showIcon);
-
         edtNumberToDialInput.setEnabled(!swShowIconSwitch.isChecked());
 
     }
@@ -97,10 +84,9 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         String numberToDial = edtNumberToDialInput.getText().toString();
-
         preferencesEditor.putString("numberToDial", numberToDial);
-
         preferencesEditor.apply();
     }
 }

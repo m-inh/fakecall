@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00EE76</color>
-    <color name="colorPrimaryDark">#00EE76</color>
-    <color name="colorAccent">#6E7B8B</color>
-    <color name="colorTextTitle">#f0f0fa</color>
-    <color name="colorBackground">#3CB371</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF8A65</color>
+    <color name="colorTextTitle">#ffffff</color>
+    <color name="colorBackground">#1976D2</color>
     <color name="glowpad_outer_ring_color">#26ffffff</color>
     <color name="white">#fff</color>
     <color name="darkWhite">#ede4e4e4</color>

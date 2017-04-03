@@ -1,25 +1,25 @@
-package com.uet.fakecall.broadcasr;
+package com.uet.fakecall.broadcast;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.telephony.TelephonyManager;
 
 import com.uet.fakecall.MainActivity;
 
 
 public class FakeCallReceiver extends BroadcastReceiver {
-    // todo: don't use default scope
-    // just use private
-    SharedPreferences appSettings;
+
+    private static final String NUMBER_TO_DIAL = "numberToDial";
+    private static final String REQUEST_STRING = "111";
+
+    private SharedPreferences appSettings;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         appSettings = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
 
-        // todo: numberToDial is constant
-        String numberToDial = appSettings.getString("numberToDial", "111");
+        String numberToDial = appSettings.getString(NUMBER_TO_DIAL, REQUEST_STRING);
         String phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
 
         if (phoneNumber.equals(numberToDial)) {

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.uet.fakecall.R;
 import com.uet.fakecall.fragment.FakeCallFragment;
+import com.uet.fakecall.untils.CallLogUntilities;
 
 import java.util.Date;
 import java.util.Locale;
@@ -31,9 +33,9 @@ public class ScheduleCallActivity extends AppCompatActivity {
     private static final int HANA_UP_AFTER = 15;
     private static final int DURATION = 63;
 
-    //todo: dont use default scope
-    RadioGroup rdCallType;
-    Button btnSetCallSchedule;
+
+    private RadioGroup rdCallType;
+    private Button btnSetCallSchedule;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,23 +80,17 @@ public class ScheduleCallActivity extends AppCompatActivity {
 
                 int radioButtonIndex = rdCallType.indexOfChild(radioButton);
 
-                // todo: pretty code
-                ContentResolver contentResolver = getContentResolver();
+                //ContentResolver contentResolver = getContentResolver();
 
                 if (radioButtonIndex == 0) {
-
                     Intent intent = new Intent(ScheduleCallActivity.this, FakeCallRingerActivity.class);
 
                     intent.putExtra(FakeCallFragment.FAKE_NAME, nameCaller);
-
                     intent.putExtra(FakeCallFragment.FAKE_NUMBER, "Mobile " + numberPhoneCaller);
-
                     intent.putExtra("duration", Integer.parseInt(duration));
-
                     intent.putExtra("hangUpAfter", Integer.parseInt(hangUpAfter));
 
                     final int fakeCallID = (int) System.currentTimeMillis();
-
 
                     PendingIntent pendingIntent = PendingIntent.getActivity(ScheduleCallActivity.this, fakeCallID, intent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -104,6 +100,14 @@ public class ScheduleCallActivity extends AppCompatActivity {
 
                     Toast.makeText(ScheduleCallActivity.this, "Fake call scheduled", Toast.LENGTH_SHORT).show();
 
+                    finish();
+                } else if (radioButtonIndex == 1) {
+                    CallLogUntilities.addCallToLog(getContentResolver(), nameCaller, Integer.parseInt(duration), CallLog.Calls.OUTGOING_TYPE, System.currentTimeMillis()+ timeSchedule);
+                    Toast.makeText(getApplicationContext(), "Fake outgoing call added to log", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else if (radioButtonIndex == 2) {
+                    CallLogUntilities.addCallToLog(getContentResolver(), numberPhoneCaller, 0, CallLog.Calls.MISSED_TYPE, System.currentTimeMillis() + timeSchedule);
+                    Toast.makeText(getApplicationContext(), "Fake missed call added to log", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
