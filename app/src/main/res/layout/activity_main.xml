@@ -34,7 +34,7 @@
                     android:maxHeight="?attr/actionBarSize"
                     android:layout_centerInParent="true"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_setting" />
+                    android:src="@mipmap/ic_setting" />
             </RelativeLayout>
 
         </LinearLayout>

@@ -237,7 +237,7 @@ public class FakeCallRingerActivity extends AppCompatActivity {
 
                         stopRinging();
 
-                        mainLayout.setBackground(getResources().getDrawable(R.drawable.answered_bg));
+                        mainLayout.setBackground(getResources().getDrawable(R.mipmap.answered_bg));
 
                         ibEndCall.setVisibility(View.VISIBLE);
 

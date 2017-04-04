@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ringing_bg"
+    android:background="@mipmap/ringing_bg"
     android:id="@+id/main_layout">
 
     <RelativeLayout
@@ -120,7 +120,7 @@
                 android:layout_height="65dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
-                android:src="@drawable/btn"
+                android:src="@mipmap/btn"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"/>
 

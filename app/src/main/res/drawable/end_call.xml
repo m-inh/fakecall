@@ -3,13 +3,13 @@
 
     <item
           android:state_pressed="true">
-        <bitmap android:src="@drawable/end"
+        <bitmap android:src="@mipmap/end"
                 android:tint="#b6ffffff"
                 android:tintMode="src_atop"/>
     </item>
     
     <item>
-        <bitmap android:src="@drawable/end"/>
+        <bitmap android:src="@mipmap/end"/>
     </item>
 
 </selector>
