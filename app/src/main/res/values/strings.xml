@@ -21,4 +21,6 @@
     <string name="missed_call">Miss call</string>
     <string name="content_mess">See you soon</string>
     <string name="schedule_mess">Schedule Message</string>
+    <string name="number_hint">1234</string>
+    <string name="name_hint">Name</string>
 </resources>

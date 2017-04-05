@@ -18,7 +18,7 @@ import com.uet.fakecall.fragment.FakeCallFragment;
 import com.uet.fakecall.fragment.FakeSMSFragment;
 
 public class MainActivity extends AppCompatActivity {
-    public static Context contextOfApp;
+
     private ImageView ivSetting;
 
     private ViewPager viewPager;
@@ -38,12 +38,8 @@ public class MainActivity extends AppCompatActivity {
         initComps();
     }
 
-    public static Context getContextOfApp(){
-        return contextOfApp;
-    }
 
     private void initViews() {
-        contextOfApp = getApplicationContext();
         ivSetting = (ImageView) findViewById(R.id.iv_setting);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);

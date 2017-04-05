@@ -11,18 +11,21 @@ import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uet.fakecall.MainActivity;
 import com.uet.fakecall.R;
 import com.uet.fakecall.broadcast.FakeSMSReceiver;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -40,6 +43,7 @@ public class FakeSMSFragment extends Fragment {
     private ImageView ivLoadContact;
     private Button btnMakeSMS;
     private EditText edtContentMess;
+    private TextView tvDisplayTimeFakeSMS;
 
     public FakeSMSFragment(){
 
@@ -50,7 +54,7 @@ public class FakeSMSFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_fake_sms,container,false);
 
-        contextOfApplication = MainActivity.getContextOfApp();
+        contextOfApplication = getActivity().getApplicationContext();
 
         edtSMSerPhone = (EditText) view.findViewById(R.id.edt_phone_fake_sms);
         edtSMSerName = (EditText) view.findViewById(R.id.edt_name_fake_sms);
@@ -90,6 +94,10 @@ public class FakeSMSFragment extends Fragment {
                 Toast.makeText(contextOfApplication, "Fake SMS Scheduled", Toast.LENGTH_SHORT).show();
             }
         });
+
+        tvDisplayTimeFakeSMS = (TextView) view.findViewById(R.id.tv_display_time_reciever_mess);
+        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+        tvDisplayTimeFakeSMS.setText(currentDateTimeString);
 
         return view;
     }

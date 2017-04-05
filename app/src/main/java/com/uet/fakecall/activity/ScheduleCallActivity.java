@@ -102,11 +102,11 @@ public class ScheduleCallActivity extends AppCompatActivity {
 
                     finish();
                 } else if (radioButtonIndex == 1) {
-                    CallLogUntilities.addCallToLog(getContentResolver(), nameCaller, Integer.parseInt(duration), CallLog.Calls.OUTGOING_TYPE, System.currentTimeMillis()+ timeSchedule);
+                    CallLogUntilities.addCallToLog(getContentResolver(), nameCaller, Integer.parseInt(duration), CallLog.Calls.OUTGOING_TYPE, System.currentTimeMillis()+ timeSchedule, getApplicationContext());
                     Toast.makeText(getApplicationContext(), "Fake outgoing call added to log", Toast.LENGTH_SHORT).show();
                     finish();
                 } else if (radioButtonIndex == 2) {
-                    CallLogUntilities.addCallToLog(getContentResolver(), numberPhoneCaller, 0, CallLog.Calls.MISSED_TYPE, System.currentTimeMillis() + timeSchedule);
+                    CallLogUntilities.addCallToLog(getContentResolver(), numberPhoneCaller, 0, CallLog.Calls.MISSED_TYPE, System.currentTimeMillis() + timeSchedule,getApplicationContext());
                     Toast.makeText(getApplicationContext(), "Fake missed call added to log", Toast.LENGTH_SHORT).show();
                     finish();
                 }

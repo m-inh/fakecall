@@ -2,12 +2,13 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF8A65</color>
-    <color name="colorTextTitle">#ffffff</color>
-    <color name="colorBackground">#1976D2</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorText">#000000</color>
+    <color name="colorBackground">#ffff</color>
     <color name="glowpad_outer_ring_color">#26ffffff</color>
-    <color name="white">#fff</color>
+    <color name="white">#ffffff</color>
     <color name="darkWhite">#ede4e4e4</color>
     <color name="incoming_call_widget_bitmap">#ffffffff</color>
     <color name="incoming_call_decline_circle">#fff44336</color>
+    <color name="backgroundFragment">#00AFF0</color>
 </resources>

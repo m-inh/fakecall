@@ -53,7 +53,7 @@ public class FakeCallFragment extends Fragment{
 
         final View view = inflater.inflate(R.layout.fragment_fake_call,container,false);
 
-        contextOfApplication = MainActivity.getContextOfApp();
+        contextOfApplication = getActivity().getApplicationContext();
         edtCallerName = (EditText) view.findViewById(R.id.edt_name_fake_call);
         edtCallerNumber = (EditText) view.findViewById(R.id.edt_phone_fake_call);
         ivLoadContact = (ImageView) view.findViewById(R.id.iv_load_contact_call);

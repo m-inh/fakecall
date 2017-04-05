@@ -11,9 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import com.uet.fakecall.MainActivity;
 
 public class CallLogUntilities {
-    public static void addCallToLog(ContentResolver contentResolver, String number, long duration, int type, long time) {
-
-        Context context = MainActivity.getContextOfApp();
+    public static void addCallToLog(ContentResolver contentResolver, String number, long duration, int type, long time, Context context) {
 
         ContentValues values = new ContentValues();
 

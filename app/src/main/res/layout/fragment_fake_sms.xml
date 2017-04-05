@@ -3,110 +3,138 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
-        <TableRow
-            android:weightSum="5">
+        android:layout_marginTop="15dp">
+
+        <TableRow android:weightSum="5">
+
             <TextView
-                android:gravity="center"
                 android:layout_height="20dp"
                 android:layout_weight="1"
-                android:text="@string/photoUser"
-                android:textSize="15sp"/>
-            <TextView
                 android:gravity="center"
+                android:text="@string/photoUser"
+                android:textColor="@color/colorText"
+                android:textSize="15sp" />
+
+            <TextView
                 android:layout_height="20dp"
                 android:layout_weight="4"
+                android:gravity="center"
                 android:text="@string/contact"
-                android:textSize="15sp"/>
+                android:textColor="@color/colorText"
+                android:textSize="15sp" />
         </TableRow>
+
         <TableRow
-            android:weightSum="5"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:weightSum="5">
+
             <ImageView
                 android:id="@+id/iv_photo_fake_sms"
-                android:layout_weight="1"
                 android:layout_height="80dp"
-                android:src="@mipmap/ic_user"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_user" />
+
             <LinearLayout
-                android:layout_weight="4"
-                android:layout_height="100dp"
                 android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="4"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="10dp"
                         android:text="@string/name_user"
-                        android:textSize="8sp"/>
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="40dp">
+
                         <EditText
                             android:id="@+id/edt_name_fake_sms"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:hint="@string/name_hint"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:textColor="@color/colorText"/>
+
                         <ImageView
                             android:id="@+id/iv_load_contact_sms"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/ic_contact"
-                            android:layout_alignParentRight="true"/>
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_alignParentRight="true"
+                            android:src="@mipmap/ic_contact" />
                     </RelativeLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="10dp"
                         android:text="@string/phone_user"
-                        android:textSize="8sp"/>
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp" />
+
                     <EditText
+                        android:id="@+id/edt_phone_fake_sms"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:id="@+id/edt_phone_fake_sms"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:textColorHint="@android:color/darker_gray"
+                        android:hint="@string/number_hint"
+                        android:textColor="@color/colorText"/>
                 </LinearLayout>
 
             </LinearLayout>
         </TableRow>
+
         <EditText
-            android:layout_marginTop="10dp"
+            android:id="@+id/edt_mess"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/edt_mess"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorText"
             android:text="@string/content_mess" />
+
         <TextView
             android:id="@+id/tv_display_time_reciever_mess"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
-            android:background="@color/colorPrimaryDark"
-            />
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center" />
     </TableLayout>
 
     <Button
         android:layout_gravity="center_horizontal"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:text="@string/schedule_mess"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:layout_marginTop="40dp"
         android:id="@+id/btn_make_sms"/>
 </LinearLayout>

@@ -6,7 +6,7 @@
     android:id="@+id/main_layout">
 
     <RelativeLayout
-        android:id="@+id/callInfoLayout"
+        android:id="@+id/rl_call_info"
         android:layout_width="match_parent"
         android:paddingTop="33dp"
         android:paddingStart="30dp"
@@ -14,7 +14,7 @@
         android:layout_height="193dp">
 
         <TextView
-            android:id="@+id/callStatus"
+            android:id="@+id/tv_call_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/incoming_call"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="40sp"
-            android:layout_below="@+id/callStatus"
+            android:layout_below="@+id/tv_call_status"
             android:fontFamily="sans-serif-light"
             android:text="@string/unknown"/>
 
@@ -40,7 +40,7 @@
             android:layout_below="@+id/tv_caller_name_fake_call_ring"/>
 
         <TextView
-            android:id="@+id/callDuration"
+            android:id="@+id/tv_call_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/darkWhite"
@@ -53,13 +53,13 @@
             android:layout_toRightOf="@+id/tv_number_fake_call_ring" />
     </RelativeLayout>
     <FrameLayout
-        android:id="@+id/callActionLayout"
+        android:id="@+id/fl_call_action"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/callInfoLayout">
+        android:layout_below="@+id/rl_call_info">
 
         <ImageView
-            android:id="@+id/contactPhoto"
+            android:id="@+id/iv_contact_photo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"/>
@@ -71,7 +71,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/ring"
+                android:id="@+id/iv_ring"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/ring"
@@ -79,7 +79,7 @@
                 android:layout_centerHorizontal="true"/>
 
             <ImageButton
-                android:id="@+id/callActionText"
+                android:id="@+id/tv_call_action_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
@@ -91,7 +91,7 @@
                 android:layout_marginTop="26dp"/>
 
             <ImageButton
-                android:id="@+id/ib_callActionDecline"
+                android:id="@+id/ib_call_action_decline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
@@ -102,7 +102,7 @@
                 android:layout_marginStart="-8dp"/>
 
             <ImageButton
-                android:id="@+id/ib_callActionAnswer"
+                android:id="@+id/ib_call_action_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
@@ -115,7 +115,7 @@
                 android:layout_alignParentRight="true" />
 
             <ImageButton
-                android:id="@+id/ib_callActionButton"
+                android:id="@+id/ib_call_action_button"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:scaleType="fitCenter"
@@ -125,7 +125,7 @@
                 android:layout_centerHorizontal="true"/>
 
             <ImageButton
-                android:id="@+id/ib_endCall"
+                android:id="@+id/ib_end_call"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:scaleType="fitCenter"

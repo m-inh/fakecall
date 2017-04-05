@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -39,7 +38,6 @@ import com.uet.fakecall.fragment.FakeCallFragment;
 import com.uet.fakecall.untils.CallLogUntilities;
 
 import java.util.Locale;
-
 
 public class FakeCallRingerActivity extends AppCompatActivity {
 
@@ -131,23 +129,23 @@ public class FakeCallRingerActivity extends AppCompatActivity {
 
         callActionButtonsLayout = (RelativeLayout)findViewById(R.id.call_action_button_layout);
 
-        ibCallActionButton = (ImageButton) findViewById(R.id.ib_callActionButton);
+        ibCallActionButton = (ImageButton) findViewById(R.id.ib_call_action_button);
 
-        ibAnswer = (ImageButton) findViewById(R.id.ib_callActionAnswer);
+        ibAnswer = (ImageButton) findViewById(R.id.ib_call_action_answer);
 
-        ibDecline = (ImageButton) findViewById(R.id.ib_callActionDecline);
+        ibDecline = (ImageButton) findViewById(R.id.ib_call_action_decline);
 
-        ibText = (ImageButton) findViewById(R.id.callActionText);
+        ibText = (ImageButton) findViewById(R.id.tv_call_action_text);
 
-        ibEndCall = (ImageButton) findViewById(R.id.ib_endCall);
+        ibEndCall = (ImageButton) findViewById(R.id.ib_end_call);
 
         mainLayout = (RelativeLayout) findViewById(R.id.main_layout);
 
-        ivRing = (ImageView) findViewById(R.id.ring);
+        ivRing = (ImageView) findViewById(R.id.iv_ring);
 
-        callStatus = (TextView) findViewById(R.id.callStatus);
+        callStatus = (TextView) findViewById(R.id.tv_call_status);
 
-        callDuration = (TextView) findViewById(R.id.callDuration);
+        callDuration = (TextView) findViewById(R.id.tv_call_duration);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         int hangUpAfter = extras.getInt("hangUpAfter");
@@ -394,13 +392,13 @@ public class FakeCallRingerActivity extends AppCompatActivity {
 
         notificationManager.notify(MISSED_CALL_NOTIFICATION, nBuilder.build());
 
-         CallLogUntilities.addCallToLog(contentResolver, callNumber, 0, CallLog.Calls.MISSED_TYPE, System.currentTimeMillis());
+         CallLogUntilities.addCallToLog(contentResolver, callNumber, 0, CallLog.Calls.MISSED_TYPE, System.currentTimeMillis(),getApplicationContext());
 
     }
 
     private void incomingCall() {
 
-        CallLogUntilities.addCallToLog(contentResolver, callNumber, secs, CallLog.Calls.INCOMING_TYPE, System.currentTimeMillis());
+        CallLogUntilities.addCallToLog(contentResolver, callNumber, secs, CallLog.Calls.INCOMING_TYPE, System.currentTimeMillis(), getApplicationContext());
 
     }
 
