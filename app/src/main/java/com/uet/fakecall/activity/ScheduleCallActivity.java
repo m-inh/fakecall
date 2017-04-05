@@ -9,8 +9,10 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.provider.CallLog;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,9 +32,7 @@ import java.util.Locale;
 public class ScheduleCallActivity extends AppCompatActivity {
 
     private static final int FILE_SELECT = 1002;
-    private static final int HANA_UP_AFTER = 15;
     private static final int DURATION = 63;
-
 
     private RadioGroup rdCallType;
     private Button btnSetCallSchedule;
@@ -53,7 +53,6 @@ public class ScheduleCallActivity extends AppCompatActivity {
                 String numberPhoneCaller = extras.getString(FakeCallFragment.FAKE_NUMBER);
 
                 EditText edtDurationInput = (EditText)findViewById(R.id.edt_call_duration_input);
-                EditText edtHangUpAfterInput = (EditText)findViewById(R.id.hangup_after_input);
                 EditText edtTimePicker = (EditText)  findViewById(R.id.edt_time_picker);
 
                 if(edtTimePicker.getText().toString().equals("")){
@@ -64,16 +63,12 @@ public class ScheduleCallActivity extends AppCompatActivity {
                 int timeSchedule = Integer.parseInt(String.valueOf(edtTimePicker.getText().toString()));
 
                 String duration = edtDurationInput.getText().toString();
-                String hangUpAfter = edtHangUpAfterInput.getText().toString();
 
                 if(nameCaller.equals("")){
                     nameCaller = getResources().getString(R.string.unknown);
                 }
                 if (duration.equals("")) {
                     duration = Integer.toString(DURATION);
-                }
-                if (hangUpAfter.equals("")) {
-                    hangUpAfter = Integer.toString(HANA_UP_AFTER);
                 }
 
                 RadioButton radioButton = (RadioButton)findViewById(rdCallType.getCheckedRadioButtonId());
@@ -87,8 +82,8 @@ public class ScheduleCallActivity extends AppCompatActivity {
 
                     intent.putExtra(FakeCallFragment.FAKE_NAME, nameCaller);
                     intent.putExtra(FakeCallFragment.FAKE_NUMBER, "Mobile " + numberPhoneCaller);
-                    intent.putExtra("duration", Integer.parseInt(duration));
-                    intent.putExtra("hangUpAfter", Integer.parseInt(hangUpAfter));
+                    intent.putExtra("duration", Integer.parseInt(duration) * 1000);
+//                    intent.putExtra("hangUpAfter", Integer.parseInt(hangUpAfter));
 
                     final int fakeCallID = (int) System.currentTimeMillis();
 
@@ -96,7 +91,7 @@ public class ScheduleCallActivity extends AppCompatActivity {
 
                     AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + timeSchedule  , pendingIntent);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + timeSchedule * 1000 , pendingIntent);
 
                     Toast.makeText(ScheduleCallActivity.this, "Fake call scheduled", Toast.LENGTH_SHORT).show();
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_photo_fake_call"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/ic_user"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="1dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/darker_gray">
+
+        <EditText
+            android:id="@+id/edt_name_fake_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_hint"
+            android:textColor="@color/colorText"
+            android:textColorHint="@android:color/darker_gray" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/darker_gray">
+
+        <EditText
+            android:id="@+id/edt_phone_fake_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/number_hint"
+            android:textColor="@color/colorText"
+            android:textColorHint="@android:color/darker_gray" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingLeft="90px">
+
+        <Button
+            android:id="@+id/btn_load_contact"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/load_contact" />
+
+        <Button
+            android:id="@+id/btn_make_call"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="@string/make_call" />
+
+
+    </TableRow>
+</LinearLayout>

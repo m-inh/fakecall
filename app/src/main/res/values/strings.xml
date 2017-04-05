@@ -11,16 +11,17 @@
     <string name="incoming">Incomming</string>
     <string name="outgoing">Outgoing</string>
     <string name="missed">Missed</string>
-    <string name="duration">Duration</string>
+    <string name="duration">Duration (second)</string>
     <string name="hang_up_after">Hang up after</string>
     <string name="voice">Voice</string>
     <string name="schedule">Make Call</string>
-    <string name="time">TimePicker</string>
+    <string name="time">Start after (second)</string>
     <string name="show_application_icon">Show application icon in launcher</string>
     <string name="number_to_dial">Number to dial to launch app</string>
     <string name="missed_call">Miss call</string>
     <string name="content_mess">See you soon</string>
     <string name="schedule_mess">Schedule Message</string>
-    <string name="number_hint">1234</string>
+    <string name="number_hint">Number</string>
     <string name="name_hint">Name</string>
+    <string name="load_contact">Load contact</string>
 </resources>

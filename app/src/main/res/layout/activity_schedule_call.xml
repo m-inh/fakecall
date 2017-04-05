@@ -63,15 +63,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/edt_time_picker"/>
-        <EditText
-            android:id="@+id/hangup_after_input"
-            android:layout_below="@+id/edt_call_duration_input"
-            android:hint="@string/hang_up_after"
-            android:inputType="number"
-            android:layout_marginLeft="@dimen/layout_margin"
-            android:layout_marginRight="@dimen/layout_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 

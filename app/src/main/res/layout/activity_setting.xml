@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/action_setting"
-            android:textSize="30sp"
-            android:textColor="@android:color/white"/>
+        android:minHeight="?attr/actionBarSize" />
 
-    </android.support.v7.widget.Toolbar>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:padding="16dp"
+        android:layout_marginTop="20dp">
+
         <Switch
+            android:id="@+id/show_icon_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/show_application_icon"
-            android:id="@+id/show_icon_switch"
-            android:onClick="onClickShowIcon"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            android:layout_alignParentTop="true"
             android:checked="true"
-            android:layout_alignParentRight="true" />
+            android:onClick="onClickShowIcon"
+            android:text="@string/show_application_icon" />
 
         <EditText
+            android:id="@+id/edt_number_to_dial_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/number_to_dial"
-            android:inputType="number"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/show_icon_switch"
             android:ems="10"
             android:enabled="false"
-            android:id="@+id/edt_number_to_dial_input"
-            android:layout_below="@+id/show_icon_switch"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true" />
+            android:hint="@string/number_to_dial"
+            android:inputType="number" />
     </RelativeLayout>
 
 </LinearLayout>

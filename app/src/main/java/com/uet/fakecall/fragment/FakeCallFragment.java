@@ -29,7 +29,7 @@ import com.uet.fakecall.activity.ScheduleCallActivity;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class FakeCallFragment extends Fragment{
+public class FakeCallFragment extends Fragment {
     public static final String FAKE_NAME = "Fake name";
     public static final String FAKE_NUMBER = "Fake number";
     private static final String TAG = Fragment.class.getSimpleName();
@@ -40,10 +40,10 @@ public class FakeCallFragment extends Fragment{
     private Context contextOfApplication;
     private EditText edtCallerName;
     private EditText edtCallerNumber;
-    private ImageView ivLoadContact;
+    private Button btnLoadContact;
     private Button btnMakeCall;
 
-    public FakeCallFragment(){
+    public FakeCallFragment() {
 
     }
 
@@ -51,15 +51,15 @@ public class FakeCallFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_fake_call,container,false);
+        final View view = inflater.inflate(R.layout.fragment_fakecall, container, false);
 
         contextOfApplication = getActivity().getApplicationContext();
         edtCallerName = (EditText) view.findViewById(R.id.edt_name_fake_call);
         edtCallerNumber = (EditText) view.findViewById(R.id.edt_phone_fake_call);
-        ivLoadContact = (ImageView) view.findViewById(R.id.iv_load_contact_call);
+        btnLoadContact = (Button) view.findViewById(R.id.btn_load_contact);
         btnMakeCall = (Button) view.findViewById(R.id.btn_make_call);
 
-        ivLoadContact.setOnClickListener(new View.OnClickListener() {
+        btnLoadContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI),
@@ -70,7 +70,7 @@ public class FakeCallFragment extends Fragment{
         btnMakeCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( edtCallerNumber.getText().toString().equals("")){
+                if (edtCallerNumber.getText().toString().equals("")) {
                     Toast.makeText(getActivity(), "Number can't be empty!", Toast.LENGTH_SHORT).show();
 
                     return;
@@ -156,7 +156,7 @@ public class FakeCallFragment extends Fragment{
         edtCallerNumber.setText(contactNumber);
     }
 
-    private void retrieveContactName(){
+    private void retrieveContactName() {
 
         String contactName = null;
         Cursor cursor = contextOfApplication.getContentResolver().query(uriContact, null, null, null, null);

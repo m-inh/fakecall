@@ -1,109 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
-        <TableRow
-            android:weightSum="5">
+        android:layout_marginTop="15dp">
+
+        <TableRow android:weightSum="5">
+
             <TextView
-                android:gravity="center"
                 android:layout_height="20dp"
                 android:layout_weight="1"
-                android:text="@string/photoUser"
-                android:textSize="15sp"
-                android:textColor="@color/colorText"/>
-            <TextView
                 android:gravity="center"
+                android:text="@string/photoUser"
+                android:textColor="@color/colorText"
+                android:textSize="15sp" />
+
+            <TextView
                 android:layout_height="20dp"
                 android:layout_weight="4"
+                android:gravity="center"
                 android:text="@string/contact"
-                android:textSize="15sp"
-                android:textColor="@color/colorText"/>
+                android:textColor="@color/colorText"
+                android:textSize="15sp" />
         </TableRow>
+
         <TableRow
-            android:weightSum="5"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:weightSum="5">
+
             <ImageView
                 android:id="@+id/iv_photo_fake_call"
-                android:layout_weight="1"
                 android:layout_height="80dp"
-                android:src="@mipmap/ic_user"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_user" />
+
             <LinearLayout
-                android:layout_weight="4"
-                android:layout_height="100dp"
                 android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="4"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="10dp"
                         android:text="@string/name_user"
-                        android:textSize="8sp"
-                        android:textColor="@color/colorText"/>
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp" />
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="40dp">
+
                         <EditText
                             android:id="@+id/edt_name_fake_call"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="text"
                             android:hint="@string/name_hint"
-                            android:textColorHint="@android:color/darker_gray"
-                            android:textColor="@color/colorText"/>
+                            android:inputType="text"
+                            android:textColor="@color/colorText"
+                            android:textColorHint="@android:color/darker_gray" />
+
                         <ImageView
                             android:id="@+id/iv_load_contact_call"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@mipmap/ic_contact"
                             android:layout_alignParentRight="true"
-                           android:layout_marginTop="8dp"/>
+                            android:layout_marginTop="8dp"
+                            android:src="@mipmap/ic_contact" />
                     </RelativeLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="10dp"
                         android:text="@string/phone_user"
-                        android:textSize="8sp"
-                        android:textColor="@color/colorText"/>
+                        android:textColor="@color/colorText"
+                        android:textSize="8sp" />
+
                     <EditText
+                        android:id="@+id/edt_phone_fake_call"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:id="@+id/edt_phone_fake_call"
-                        android:textColor="@color/colorText"
                         android:hint="@string/number_hint"
-                        android:textColorHint="@android:color/darker_gray"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:textColor="@color/colorText"
+                        android:textColorHint="@android:color/darker_gray" />
                 </LinearLayout>
 
             </LinearLayout>
         </TableRow>
     </TableLayout>
+
     <Button
+        android:id="@+id/btn_make_call"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="@string/make_call"
         android:background="@color/colorPrimary"
-        android:id="@+id/btn_make_call"
-        android:textColor="@color/white"/>
+        android:text="@string/make_call"
+        android:textColor="@color/white" />
 
 </LinearLayout>

@@ -32,7 +32,7 @@
         </activity-alias>
 
 
-        <activity android:name=".activity.SettingActivity"/>
+        <activity android:name=".activity.SettingActivity" android:label="Settings"/>
         <activity android:name=".activity.FakeCallRingerActivity"/>
         <activity android:name=".activity.ScheduleCallActivity"/>
         <receiver android:name=".broadcast.FakeCallReceiver"/>

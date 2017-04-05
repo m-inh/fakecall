@@ -33,10 +33,12 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setTitle("Settings");
 
         swShowIconSwitch = (Switch) findViewById(R.id.show_icon_switch);
         edtNumberToDialInput = (EditText) findViewById(R.id.edt_number_to_dial_input);

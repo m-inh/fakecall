@@ -82,13 +82,6 @@ public class FakeCallRingerActivity extends AppCompatActivity {
 
     final Handler handler = new Handler();
 
-    private Runnable hangUP = new Runnable() {
-        @Override
-        public void run() {
-            finish();
-        }
-    };
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
@@ -112,66 +105,39 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         //final Drawable bg2 = getDrawable(R.drawable.answered_bg);
 
         contentResolver = getContentResolver();
-
         resources = getResources();
-
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
         wakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "Tag");
-
         currentRingerMode = audioManager.getRingerMode();
-
         currentRingerVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-
         currentMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
         callActionButtonsLayout = (RelativeLayout)findViewById(R.id.call_action_button_layout);
-
         ibCallActionButton = (ImageButton) findViewById(R.id.ib_call_action_button);
-
         ibAnswer = (ImageButton) findViewById(R.id.ib_call_action_answer);
-
         ibDecline = (ImageButton) findViewById(R.id.ib_call_action_decline);
-
         ibText = (ImageButton) findViewById(R.id.tv_call_action_text);
-
         ibEndCall = (ImageButton) findViewById(R.id.ib_end_call);
-
         mainLayout = (RelativeLayout) findViewById(R.id.main_layout);
-
         ivRing = (ImageView) findViewById(R.id.iv_ring);
-
         callStatus = (TextView) findViewById(R.id.tv_call_status);
-
         callDuration = (TextView) findViewById(R.id.tv_call_duration);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        int hangUpAfter = extras.getInt("hangUpAfter");
         duration = extras.getInt("duration");
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         wakeLock.setReferenceCounted(false);
 
         nBuilder.setSmallIcon(R.mipmap.ic_call);
-
         nBuilder.setOngoing(true);
-
         nBuilder.setContentTitle(callName);
-
         nBuilder.setColor(Color.rgb(4, 137, 209));
-
         nBuilder.setContentText(resources.getString(R.string.incoming_call));
-
         notificationManager.notify(INCOMING_CALL_NOTIFICATION, nBuilder.build());
-
-        handler.postDelayed(hangUP, hangUpAfter * 1000);
 
         muteAll();
 
@@ -190,57 +156,33 @@ public class FakeCallRingerActivity extends AppCompatActivity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 int a = event.getAction();
 
                 if (a == MotionEvent.ACTION_DOWN) {
-
                     x1 = event.getX();
-
                     y1 = event.getY();
-
                     ivRing.startAnimation(ringExpandAnimation);
-
                     ibAnswer.setVisibility(View.VISIBLE);
-
                     ibDecline.setVisibility(View.VISIBLE);
-
                     ibText.setVisibility(View.VISIBLE);
-
                     ibCallActionButton.setVisibility(View.INVISIBLE);
-
                 } else if (a == MotionEvent.ACTION_MOVE) {
-
                     x2 = event.getX();
-
                     y2 = event.getY();
 
                     if ((x2 - 200) > x1) {
-
                         callActionButtonsLayout.removeView(callActionButtonsLayout);
-
                         callActionButtonsLayout.removeView(ivRing);
-
                         callActionButtonsLayout.removeView(ibAnswer);
-
                         callActionButtonsLayout.removeView(ibDecline);
-
                         callActionButtonsLayout.removeView(ibText);
-
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-
-                        handler.removeCallbacks(hangUP);
-
                         callStatus.setText("");
 
                         stopRinging();
-
                         mainLayout.setBackground(getResources().getDrawable(R.mipmap.answered_bg));
-
                         ibEndCall.setVisibility(View.VISIBLE);
-
                         wakeLock.acquire();
-
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
