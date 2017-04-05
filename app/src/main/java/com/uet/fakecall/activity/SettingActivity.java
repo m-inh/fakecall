@@ -40,6 +40,7 @@ public class SettingActivity extends AppCompatActivity {
 
         swShowIconSwitch = (Switch) findViewById(R.id.show_icon_switch);
         edtNumberToDialInput = (EditText) findViewById(R.id.edt_number_to_dial_input);
+        edtNumberToDialInput.setVisibility(View.GONE);
 
         appSettings = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         preferencesEditor = appSettings.edit();

@@ -19,17 +19,24 @@
         android:supportsRtl="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity-alias
+            android:name=".Launcher"
+            android:excludeFromRecents="true"
+            android:targetActivity=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
+        </activity-alias>
+
+
         <activity android:name=".activity.SettingActivity"/>
         <activity android:name=".activity.FakeCallRingerActivity"/>
         <activity android:name=".activity.ScheduleCallActivity"/>
         <receiver android:name=".broadcast.FakeCallReceiver"/>
+        <receiver android:name=".broadcast.FakeSMSReceiver"/>
     </application>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
 

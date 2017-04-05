@@ -5,7 +5,7 @@
     android:background="@color/colorBackground">
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp">
@@ -84,6 +84,29 @@
 
             </LinearLayout>
         </TableRow>
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/edt_mess"
+            android:text="@string/content_mess" />
+        <TextView
+            android:id="@+id/tv_display_time_reciever_mess"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:background="@color/colorPrimaryDark"
+            />
     </TableLayout>
 
+    <Button
+        android:layout_gravity="center_horizontal"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/schedule_mess"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="40dp"
+        android:id="@+id/btn_make_sms"/>
 </LinearLayout>

@@ -1,6 +1,8 @@
 package com.uet.fakecall.fragment;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,14 +15,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.uet.fakecall.MainActivity;
 import com.uet.fakecall.R;
+import com.uet.fakecall.broadcast.FakeSMSReceiver;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public class FakeSMSFragment extends Fragment {
-
+    private static final String NAME_FAKE = "name";
+    private static final String NUMBER_FAKE = "phone";
+    private static final String MESS_FAKE = "message";
     private static final int REQUEST_CODE_PICK_CONTACTS = 1;
     private Uri uriContact;
     private String contactID;
@@ -29,6 +38,8 @@ public class FakeSMSFragment extends Fragment {
     private EditText edtSMSerName;
     private EditText edtSMSerPhone;
     private ImageView ivLoadContact;
+    private Button btnMakeSMS;
+    private EditText edtContentMess;
 
     public FakeSMSFragment(){
 
@@ -49,6 +60,34 @@ public class FakeSMSFragment extends Fragment {
             public void onClick(View v) {
                 startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI),
                         REQUEST_CODE_PICK_CONTACTS);
+            }
+        });
+
+        edtContentMess = (EditText) view.findViewById(R.id.edt_mess);
+
+        btnMakeSMS = (Button) view.findViewById(R.id.btn_make_sms);
+        btnMakeSMS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(edtSMSerPhone.getText().toString().equals("")){
+                    Toast.makeText(contextOfApplication,"Number Phone cant be empty!!!",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                Intent mIntent = new Intent(contextOfApplication, FakeSMSReceiver.class);
+                mIntent.putExtra(NAME_FAKE,edtSMSerName.getText().toString());
+                mIntent.putExtra(NUMBER_FAKE,edtSMSerPhone.getText().toString());
+                mIntent.putExtra(MESS_FAKE,edtContentMess.getText().toString());
+
+                final int fakeSMSID = (int)System.currentTimeMillis();
+
+                PendingIntent pi = PendingIntent.getBroadcast(contextOfApplication, fakeSMSID, mIntent, PendingIntent.FLAG_ONE_SHOT);
+
+                AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+
+                alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000, pi);
+
+                Toast.makeText(contextOfApplication, "Fake SMS Scheduled", Toast.LENGTH_SHORT).show();
             }
         });
 

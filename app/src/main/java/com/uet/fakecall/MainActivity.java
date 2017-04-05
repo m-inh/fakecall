@@ -16,7 +16,6 @@ import com.uet.fakecall.activity.SettingActivity;
 import com.uet.fakecall.adapter.PagerViewerAdapter;
 import com.uet.fakecall.fragment.FakeCallFragment;
 import com.uet.fakecall.fragment.FakeSMSFragment;
-import com.uet.fakecall.fragment.ScheduleFagment;
 
 public class MainActivity extends AppCompatActivity {
     public static Context contextOfApp;
@@ -29,24 +28,21 @@ public class MainActivity extends AppCompatActivity {
 
     private FakeSMSFragment fakeSMSFragment;
     private FakeCallFragment fakeCallFragment;
-    private ScheduleFagment scheduleFagment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // todo: rename meaningful: inits -> initViews()
-        inits();
+        initViews();
         initComps();
     }
 
-    // remove unnesccesary func
     public static Context getContextOfApp(){
         return contextOfApp;
     }
 
-    private void inits() {
+    private void initViews() {
         contextOfApp = getApplicationContext();
         ivSetting = (ImageView) findViewById(R.id.iv_setting);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -54,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         fakeCallFragment = new FakeCallFragment();
         fakeSMSFragment = new FakeSMSFragment();
-        scheduleFagment = new ScheduleFagment();
-        pagerAdapter = new PagerViewerAdapter(fragmentManager,fakeCallFragment,fakeSMSFragment,scheduleFagment);
+        pagerAdapter = new PagerViewerAdapter(fragmentManager,fakeCallFragment,fakeSMSFragment);
 
     }
 

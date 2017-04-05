@@ -53,7 +53,6 @@ public class FakeCallFragment extends Fragment{
 
         final View view = inflater.inflate(R.layout.fragment_fake_call,container,false);
 
-        // todo: remove get context fuction and use built-in function
         contextOfApplication = MainActivity.getContextOfApp();
         edtCallerName = (EditText) view.findViewById(R.id.edt_name_fake_call);
         edtCallerNumber = (EditText) view.findViewById(R.id.edt_phone_fake_call);
@@ -99,28 +98,28 @@ public class FakeCallFragment extends Fragment{
         }
     }
 
-    private void retrieveContactPhoto() {
-
-        Bitmap photo = null;
-
-        try {
-            InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(contextOfApplication.getContentResolver(),
-                    ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(contactID)));
-
-            if (inputStream != null) {
-                photo = BitmapFactory.decodeStream(inputStream);
-//                ImageView imageView = (ImageView) findViewById(R.id.img_contact);
-//                imageView.setImageBitmap(photo);
-            }
-
-            assert inputStream != null;
-            inputStream.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    private void retrieveContactPhoto() {
+//
+//        Bitmap photo = null;
+//
+//        try {
+//            InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(contextOfApplication.getContentResolver(),
+//                    ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(contactID)));
+//
+//            if (inputStream != null) {
+//                photo = BitmapFactory.decodeStream(inputStream);
+////                ImageView imageView = (ImageView) findViewById(R.id.img_contact);
+////                imageView.setImageBitmap(photo);
+//            }
+//
+//            assert inputStream != null;
+//            inputStream.close();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     private void retrieveContactNumber() {
 

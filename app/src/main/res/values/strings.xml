@@ -19,4 +19,6 @@
     <string name="show_application_icon">Show application icon in launcher</string>
     <string name="number_to_dial">Number to dial to launch app</string>
     <string name="missed_call">Miss call</string>
+    <string name="content_mess">See you soon</string>
+    <string name="schedule_mess">Schedule Message</string>
 </resources>
