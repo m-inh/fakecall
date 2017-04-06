@@ -2,75 +2,77 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RadioGroup android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
+
+    <RadioGroup
         android:id="@+id/callTypeRadioGroup"
-        android:layout_marginTop="20dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/incoming"
             android:id="@+id/incomingRadioButton"
-            android:checked="true"
-            android:layout_margin="@dimen/layout_margin"/>
-        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/outgoing"
-            android:id="@+id/outgoingRadioButton"/>
+            android:layout_margin="@dimen/layout_margin"
+            android:checked="true"
+            android:text="@string/incoming" />
+
+        <RadioButton
+            android:id="@+id/outgoingRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/outgoing" />
     </RadioGroup>
-
-
-
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/callTypeRadioGroup">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:ems="10"
-            android:id="@+id/edt_time_picker"
-            android:hint="@string/time"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true" />
 
         <EditText
+            android:id="@+id/edt_time_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/edt_call_duration_input"
-            android:hint="@string/duration"
-            android:layout_marginLeft="@dimen/layout_margin"
-            android:layout_marginRight="@dimen/layout_margin"
-            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/edt_time_picker"/>
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:ems="10"
+            android:hint="@string/time"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/edt_call_duration_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edt_time_picker"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:ems="10"
+            android:hint="@string/duration"
+            android:inputType="number" />
 
     </RelativeLayout>
 
     <Button
+        android:id="@+id/btn_set_call_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/schedule"
-        android:id="@+id/btn_set_call_schedule"
-        android:layout_margin="@dimen/layout_margin"
-        android:onClick="onClickSchedule"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="@dimen/layout_margin"
+        android:onClick="onClickSchedule"
+        android:text="@string/schedule" />
 
 </RelativeLayout>

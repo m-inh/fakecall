@@ -81,7 +81,6 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case NO_ANSWER:
-//                    secs = -1;
                     FakeCallRingerActivity.this.finish();
                     break;
                 case COUNT_TIME_UPDATE:
@@ -107,12 +106,6 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         callName = getContactName();
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this);
-
-        final Animation ringExpandAnimation = AnimationUtils.loadAnimation(this, R.anim.ring_expand);
-
-        final Animation ringShrinkAnimation = AnimationUtils.loadAnimation(this, R.anim.ring_shrink);
-
-        //final Drawable bg2 = getDrawable(R.drawable.answered_bg);
 
         contentResolver = getContentResolver();
         resources = getResources();
@@ -147,7 +140,6 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         btnDeline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                secs = -1;
                 finish();
             }
         });

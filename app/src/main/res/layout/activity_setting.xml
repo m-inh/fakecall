@@ -14,8 +14,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:padding="16dp">
 
         <Switch
             android:id="@+id/show_icon_switch"
@@ -23,11 +23,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:textSize="16sp"
             android:layout_alignParentTop="true"
             android:checked="true"
             android:onClick="onClickShowIcon"
-            android:text="@string/show_application_icon" />
+            android:text="@string/show_application_icon"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/edt_number_to_dial_input"

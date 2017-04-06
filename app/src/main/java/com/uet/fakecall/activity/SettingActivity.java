@@ -58,7 +58,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 Intent mIntent = new Intent(SettingActivity.this, MainActivity.class);
                 startActivity(mIntent);

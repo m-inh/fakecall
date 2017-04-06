@@ -24,7 +24,7 @@ public class PagerViewerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment frag = null;
-        switch (position){
+        switch (position) {
             case FAKE_CALL:
                 frag = fragmentFakeCall;
                 break;
@@ -43,7 +43,7 @@ public class PagerViewerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         String title = "";
-        switch (position){
+        switch (position) {
             case FAKE_CALL:
                 title = "FAKE CALL";
                 break;

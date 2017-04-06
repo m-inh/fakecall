@@ -2,32 +2,24 @@ package com.uet.fakecall.fragment;
 
 
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.uet.fakecall.MainActivity;
 import com.uet.fakecall.R;
 import com.uet.fakecall.activity.ScheduleCallActivity;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class FakeCallFragment extends Fragment {
     public static final String FAKE_NAME = "Fake name";
