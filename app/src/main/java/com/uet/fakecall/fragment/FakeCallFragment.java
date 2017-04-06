@@ -26,6 +26,7 @@ public class FakeCallFragment extends Fragment {
     public static final String FAKE_NUMBER = "Fake number";
     private static final String TAG = Fragment.class.getSimpleName();
     private static final int REQUEST_CODE_PICK_CONTACTS = 1;
+
     private Uri uriContact;
     private String contactID;
 
