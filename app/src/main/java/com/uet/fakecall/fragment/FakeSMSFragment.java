@@ -33,16 +33,17 @@ public class FakeSMSFragment extends Fragment {
     private static final String NUMBER_FAKE = "phone";
     private static final String MESS_FAKE = "message";
     private static final int REQUEST_CODE_PICK_CONTACTS = 1;
+
     private Uri uriContact;
     private String contactID;
     private Context contextOfApplication;
 
     private EditText edtSMSerName;
     private EditText edtSMSerPhone;
+    private EditText edtTimePicker;
     private Button btnLoadContact;
     private Button btnMakeSMS;
     private EditText edtContentMess;
-    private TextView tvDisplayTimeFakeSMS;
 
     public FakeSMSFragment() {
 
@@ -57,6 +58,7 @@ public class FakeSMSFragment extends Fragment {
 
         edtSMSerPhone = (EditText) view.findViewById(R.id.edt_phone_fake_sms);
         edtSMSerName = (EditText) view.findViewById(R.id.edt_name_fake_sms);
+        edtTimePicker = (EditText) view.findViewById(R.id.edt_time_picker);
         btnLoadContact = (Button) view.findViewById(R.id.btn_load_contact_sms);
         btnLoadContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,26 +79,26 @@ public class FakeSMSFragment extends Fragment {
                     return;
                 }
 
+                long timeScheduleAt = System.currentTimeMillis() + Long.parseLong(edtTimePicker.getText().toString()) * 1000;
+                int fakeSMSID = (int) System.currentTimeMillis();
+
                 Intent mIntent = new Intent(contextOfApplication, FakeSMSReceiver.class);
                 mIntent.putExtra(NAME_FAKE, edtSMSerName.getText().toString());
                 mIntent.putExtra(NUMBER_FAKE, edtSMSerPhone.getText().toString());
                 mIntent.putExtra(MESS_FAKE, edtContentMess.getText().toString());
 
-                final int fakeSMSID = (int) System.currentTimeMillis();
-
                 PendingIntent pi = PendingIntent.getBroadcast(contextOfApplication, fakeSMSID, mIntent, PendingIntent.FLAG_ONE_SHOT);
-
                 AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, timeScheduleAt, pi);
 
-                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10000, pi);
+                Toast.makeText(contextOfApplication, "Fake sms scheduled", Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(contextOfApplication, "Fake SMS Scheduled", Toast.LENGTH_SHORT).show();
+                edtSMSerName.setText("");
+                edtContentMess.setText("");
+                edtSMSerPhone.setText("");
+                edtTimePicker.setText("");
             }
         });
-
-        tvDisplayTimeFakeSMS = (TextView) view.findViewById(R.id.tv_display_time_reciever_mess);
-        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-        tvDisplayTimeFakeSMS.setText(currentDateTimeString);
 
         return view;
     }
