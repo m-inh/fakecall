@@ -3,9 +3,12 @@ package com.uet.fakecall.fragment;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -16,10 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.uet.fakecall.R;
 import com.uet.fakecall.broadcast.FakeSMSReceiver;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -39,6 +46,8 @@ public class FakeSMSFragment extends Fragment {
     private Button btnLoadContact;
     private Button btnMakeSMS;
     private EditText edtContentMess;
+    private ImageView ivPhotoFakeSMS;
+    private Bitmap photo;
 
     public FakeSMSFragment() {
 
@@ -55,6 +64,7 @@ public class FakeSMSFragment extends Fragment {
         edtSMSerName = (EditText) view.findViewById(R.id.edt_name_fake_sms);
         edtTimePicker = (EditText) view.findViewById(R.id.edt_time_picker);
         btnLoadContact = (Button) view.findViewById(R.id.btn_load_contact_sms);
+        ivPhotoFakeSMS = (ImageView) view.findViewById(R.id.iv_photo_fake_sms);
         btnLoadContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +83,14 @@ public class FakeSMSFragment extends Fragment {
                     Toast.makeText(contextOfApplication, "Number Phone cant be empty!!!", Toast.LENGTH_LONG).show();
                     return;
                 }
-
+                if(edtContentMess.getText().toString().equals("")){
+                    Toast.makeText(contextOfApplication, "Mess cant be empty!!!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (edtTimePicker.getText().toString().equals("")){
+                    Toast.makeText(contextOfApplication, "Please enter time!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 long timeScheduleAt = System.currentTimeMillis() + Long.parseLong(edtTimePicker.getText().toString()) * 1000;
                 int fakeSMSID = (int) System.currentTimeMillis();
 
@@ -81,6 +98,7 @@ public class FakeSMSFragment extends Fragment {
                 mIntent.putExtra(NAME_FAKE, edtSMSerName.getText().toString());
                 mIntent.putExtra(NUMBER_FAKE, edtSMSerPhone.getText().toString());
                 mIntent.putExtra(MESS_FAKE, edtContentMess.getText().toString());
+                mIntent.putExtra(FakeCallFragment.FAKE_PHOTO,photo);
 
                 PendingIntent pi = PendingIntent.getBroadcast(contextOfApplication, fakeSMSID, mIntent, PendingIntent.FLAG_ONE_SHOT);
                 AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
@@ -107,6 +125,7 @@ public class FakeSMSFragment extends Fragment {
 
             retrieveContactNumber();
             retrieveContactName();
+            retrieveContactPhoto();
         }
     }
 
@@ -156,6 +175,28 @@ public class FakeSMSFragment extends Fragment {
 
         cursor.close();
         edtSMSerName.setText(contactName);
+    }
+
+    private void retrieveContactPhoto() {
+
+        photo = null;
+
+        try {
+            InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(contextOfApplication.getContentResolver(),
+                    ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(contactID)));
+
+            if (inputStream != null) {
+                photo = BitmapFactory.decodeStream(inputStream);
+                ivPhotoFakeSMS.setImageBitmap(photo);
+            }
+
+            assert inputStream != null;
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

@@ -24,4 +24,5 @@
     <string name="number_hint">Number</string>
     <string name="name_hint">Name</string>
     <string name="load_contact">Load contact</string>
+    <string name="make_sms"><![CDATA[Save & Make SMS]]></string>
 </resources>

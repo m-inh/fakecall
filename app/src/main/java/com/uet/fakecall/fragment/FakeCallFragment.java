@@ -2,39 +2,49 @@ package com.uet.fakecall.fragment;
 
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.uet.fakecall.MainActivity;
 import com.uet.fakecall.R;
 import com.uet.fakecall.activity.ScheduleCallActivity;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class FakeCallFragment extends Fragment {
     public static final String FAKE_NAME = "Fake name";
     public static final String FAKE_NUMBER = "Fake number";
+    public static final String FAKE_PHOTO = "photo";
     private static final String TAG = Fragment.class.getSimpleName();
     private static final int REQUEST_CODE_PICK_CONTACTS = 1;
-
     private Uri uriContact;
     private String contactID;
+    private Bitmap photo;
 
     private Context contextOfApplication;
     private EditText edtCallerName;
     private EditText edtCallerNumber;
     private Button btnLoadContact;
     private Button btnMakeCall;
+    private ImageView ivPhoto;
 
     public FakeCallFragment() {
 
@@ -51,6 +61,7 @@ public class FakeCallFragment extends Fragment {
         edtCallerNumber = (EditText) view.findViewById(R.id.edt_phone_fake_call);
         btnLoadContact = (Button) view.findViewById(R.id.btn_load_contact);
         btnMakeCall = (Button) view.findViewById(R.id.btn_make_call);
+        ivPhoto = (ImageView) view.findViewById(R.id.iv_photo_fake_call);
 
         btnLoadContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +82,7 @@ public class FakeCallFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ScheduleCallActivity.class);
                 intent.putExtra(FAKE_NAME, edtCallerName.getText().toString());
                 intent.putExtra(FAKE_NUMBER, edtCallerNumber.getText().toString());
+                intent.putExtra(FAKE_PHOTO,photo);
                 startActivity(intent);
             }
         });
@@ -88,31 +100,31 @@ public class FakeCallFragment extends Fragment {
 
             retrieveContactNumber();
             retrieveContactName();
+            retrieveContactPhoto();
         }
     }
 
-//    private void retrieveContactPhoto() {
-//
-//        Bitmap photo = null;
-//
-//        try {
-//            InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(contextOfApplication.getContentResolver(),
-//                    ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(contactID)));
-//
-//            if (inputStream != null) {
-//                photo = BitmapFactory.decodeStream(inputStream);
-////                ImageView imageView = (ImageView) findViewById(R.id.img_contact);
-////                imageView.setImageBitmap(photo);
-//            }
-//
-//            assert inputStream != null;
-//            inputStream.close();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    private void retrieveContactPhoto() {
+
+        photo = null;
+
+        try {
+            InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(contextOfApplication.getContentResolver(),
+                    ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(contactID)));
+
+            if (inputStream != null) {
+                photo = BitmapFactory.decodeStream(inputStream);
+                ivPhoto.setImageBitmap(photo);
+            }
+
+            assert inputStream != null;
+            inputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private void retrieveContactNumber() {
 

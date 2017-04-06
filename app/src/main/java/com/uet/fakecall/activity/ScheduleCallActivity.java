@@ -3,6 +3,7 @@ package com.uet.fakecall.activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.support.annotation.Nullable;
@@ -26,6 +27,7 @@ public class ScheduleCallActivity extends AppCompatActivity {
 
     private RadioGroup rdCallType;
     private Button btnSetCallSchedule;
+    private Bitmap photo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class ScheduleCallActivity extends AppCompatActivity {
                 Bundle extras = getIntent().getExtras();
                 String nameCaller = extras.getString(FakeCallFragment.FAKE_NAME);
                 String numberPhoneCaller = extras.getString(FakeCallFragment.FAKE_NUMBER);
+                photo = (Bitmap) getIntent().getParcelableExtra(FakeCallFragment.FAKE_PHOTO);
 
                 EditText edtDurationInput = (EditText) findViewById(R.id.edt_call_duration_input);
                 EditText edtTimePicker = (EditText) findViewById(R.id.edt_time_picker);
@@ -73,6 +76,7 @@ public class ScheduleCallActivity extends AppCompatActivity {
                     intent.putExtra(FakeCallFragment.FAKE_NAME, nameCaller);
                     intent.putExtra(FakeCallFragment.FAKE_NUMBER, "Mobile " + numberPhoneCaller);
                     intent.putExtra("duration", Integer.parseInt(duration) * 1000);
+                    intent.putExtra(FakeCallFragment.FAKE_PHOTO,photo);
 //                    intent.putExtra("hangUpAfter", Integer.parseInt(hangUpAfter));
 
                     final int fakeCallID = (int) System.currentTimeMillis();
