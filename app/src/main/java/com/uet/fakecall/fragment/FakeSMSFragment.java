@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.uet.fakecall.MainActivity;
 import com.uet.fakecall.R;
 import com.uet.fakecall.broadcast.FakeSMSReceiver;
 
@@ -40,7 +39,7 @@ public class FakeSMSFragment extends Fragment {
 
     private EditText edtSMSerName;
     private EditText edtSMSerPhone;
-    private ImageView ivLoadContact;
+    private Button btnLoadContact;
     private Button btnMakeSMS;
     private EditText edtContentMess;
     private TextView tvDisplayTimeFakeSMS;
@@ -52,14 +51,14 @@ public class FakeSMSFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_fake_sms,container,false);
+        final View view = inflater.inflate(R.layout.fragment_fakesms,container,false);
 
         contextOfApplication = getActivity().getApplicationContext();
 
         edtSMSerPhone = (EditText) view.findViewById(R.id.edt_phone_fake_sms);
         edtSMSerName = (EditText) view.findViewById(R.id.edt_name_fake_sms);
-        ivLoadContact = (ImageView) view.findViewById(R.id.iv_load_contact_sms);
-        ivLoadContact.setOnClickListener(new View.OnClickListener() {
+        btnLoadContact = (Button) view.findViewById(R.id.btn_load_contact_sms);
+        btnLoadContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI),

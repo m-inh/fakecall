@@ -20,12 +20,6 @@
             android:layout_height="wrap_content"
             android:text="@string/outgoing"
             android:id="@+id/outgoingRadioButton"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/missed"
-            android:id="@+id/missedRadioButton"
-            android:layout_margin="@dimen/layout_margin"/>
     </RadioGroup>
 
 
