@@ -44,14 +44,14 @@ public class FakeSMSFragment extends Fragment {
     private EditText edtContentMess;
     private TextView tvDisplayTimeFakeSMS;
 
-    public FakeSMSFragment(){
+    public FakeSMSFragment() {
 
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_fakesms,container,false);
+        final View view = inflater.inflate(R.layout.fragment_fakesms, container, false);
 
         contextOfApplication = getActivity().getApplicationContext();
 
@@ -72,23 +72,23 @@ public class FakeSMSFragment extends Fragment {
         btnMakeSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(edtSMSerPhone.getText().toString().equals("")){
-                    Toast.makeText(contextOfApplication,"Number Phone cant be empty!!!",Toast.LENGTH_LONG).show();
+                if (edtSMSerPhone.getText().toString().equals("")) {
+                    Toast.makeText(contextOfApplication, "Number Phone cant be empty!!!", Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 Intent mIntent = new Intent(contextOfApplication, FakeSMSReceiver.class);
-                mIntent.putExtra(NAME_FAKE,edtSMSerName.getText().toString());
-                mIntent.putExtra(NUMBER_FAKE,edtSMSerPhone.getText().toString());
-                mIntent.putExtra(MESS_FAKE,edtContentMess.getText().toString());
+                mIntent.putExtra(NAME_FAKE, edtSMSerName.getText().toString());
+                mIntent.putExtra(NUMBER_FAKE, edtSMSerPhone.getText().toString());
+                mIntent.putExtra(MESS_FAKE, edtContentMess.getText().toString());
 
-                final int fakeSMSID = (int)System.currentTimeMillis();
+                final int fakeSMSID = (int) System.currentTimeMillis();
 
                 PendingIntent pi = PendingIntent.getBroadcast(contextOfApplication, fakeSMSID, mIntent, PendingIntent.FLAG_ONE_SHOT);
 
-                AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
 
-                alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + 10000, pi);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 10000, pi);
 
                 Toast.makeText(contextOfApplication, "Fake SMS Scheduled", Toast.LENGTH_SHORT).show();
             }
@@ -112,6 +112,7 @@ public class FakeSMSFragment extends Fragment {
             retrieveContactName();
         }
     }
+
     private void retrieveContactNumber() {
 
         String contactNumber = null;
@@ -147,7 +148,7 @@ public class FakeSMSFragment extends Fragment {
         edtSMSerPhone.setText(contactNumber);
     }
 
-    private void retrieveContactName(){
+    private void retrieveContactName() {
 
         String contactName = null;
         Cursor cursor = contextOfApplication.getContentResolver().query(uriContact, null, null, null, null);
