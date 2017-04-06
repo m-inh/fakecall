@@ -14,26 +14,20 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.CallLog;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
-import android.telephony.PhoneNumberUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -87,7 +81,7 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case NO_ANSWER:
-                    secs = -1;
+//                    secs = -1;
                     FakeCallRingerActivity.this.finish();
                     break;
                 case COUNT_TIME_UPDATE:
@@ -102,7 +96,7 @@ public class FakeCallRingerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fake_call);
+        setContentView(R.layout.activity_incomming_call);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -153,7 +147,7 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         btnDeline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                secs = -1;
+//                secs = -1;
                 finish();
             }
         });
@@ -162,26 +156,16 @@ public class FakeCallRingerActivity extends AppCompatActivity {
         btnAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                callStatus.setText("");
+                callStatus.setText("");
                 callStatus.setVisibility(View.INVISIBLE);
                 btnAnswer.setVisibility(View.GONE);
                 btnDeline.setVisibility(View.GONE);
-//                mainLayout.setBackgroundResource(R.mipmap.answered_bg);
                 btnEndCall.setVisibility(View.VISIBLE);
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 callDuration.setVisibility(View.VISIBLE);
                 stopRinging();
 
                 wakeLock.acquire();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-////                        callDuration.setText(dur);
-//                        handler.postDelayed(this, 1000);
-//
-//                    }
-//                }, 10);
 
                 //// endcall when duration <= 0
                 new Thread(new Runnable() {
