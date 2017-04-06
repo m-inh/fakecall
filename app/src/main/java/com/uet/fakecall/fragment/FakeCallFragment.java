@@ -114,11 +114,19 @@ public class FakeCallFragment extends Fragment {
 
             if (inputStream != null) {
                 photo = BitmapFactory.decodeStream(inputStream);
-                ivPhoto.setImageBitmap(photo);
+                if(photo!=null){
+                    ivPhoto.setImageBitmap(photo);
+                }else {
+                    ivPhoto.setImageResource(R.mipmap.ic_user);
+                }
+
             }
 
+            if(inputStream != null){
+                inputStream.close();
+            }
             assert inputStream != null;
-            inputStream.close();
+
 
         } catch (IOException e) {
             e.printStackTrace();

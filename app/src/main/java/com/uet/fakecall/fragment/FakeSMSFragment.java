@@ -187,11 +187,18 @@ public class FakeSMSFragment extends Fragment {
 
             if (inputStream != null) {
                 photo = BitmapFactory.decodeStream(inputStream);
-                ivPhotoFakeSMS.setImageBitmap(photo);
-            }
+                if(photo!=null){
+                    ivPhotoFakeSMS.setImageBitmap(photo);
+                }else {
+                    ivPhotoFakeSMS.setImageResource(R.mipmap.ic_user);
+                }
 
+            }
+            if(inputStream!=null){
+                inputStream.close();
+            }
             assert inputStream != null;
-            inputStream.close();
+
 
         } catch (IOException e) {
             e.printStackTrace();

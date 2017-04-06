@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -28,6 +29,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -75,6 +77,8 @@ public class FakeCallRingerActivity extends AppCompatActivity {
     private boolean isAnswer = false;
     private String callNumber;
     private String callName;
+    private ImageView ivPhotoFake;
+    private Bitmap photo;
 
     private Handler handlerCall = new Handler() {
         @Override
@@ -104,6 +108,14 @@ public class FakeCallRingerActivity extends AppCompatActivity {
 
         callNumber = getContactNumber();
         callName = getContactName();
+        photo = getIntent().getParcelableExtra(FakeCallFragment.FAKE_PHOTO);
+        ivPhotoFake = (ImageView) findViewById(R.id.iv_photo_fake);
+        if(photo!=null){
+            ivPhotoFake.setImageBitmap(photo);
+        }else {
+            ivPhotoFake.setImageResource(R.mipmap.ic_user);
+        }
+
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this);
 
