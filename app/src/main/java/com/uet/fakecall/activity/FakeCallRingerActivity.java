@@ -81,7 +81,6 @@ public class FakeCallRingerActivity extends AppCompatActivity {
     private boolean isAnswer = false;
     private String callNumber;
     private String callName;
-    private Handler handler = new Handler();
 
     private Handler handlerCall = new Handler() {
         @Override
@@ -97,7 +96,7 @@ public class FakeCallRingerActivity extends AppCompatActivity {
                     break;
             }
         }
-    };;
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
