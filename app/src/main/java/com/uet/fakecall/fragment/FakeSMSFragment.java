@@ -197,6 +197,10 @@ public class FakeSMSFragment extends Fragment {
             if(inputStream!=null){
                 inputStream.close();
             }
+            if(inputStream == null){
+                photo = null;
+                ivPhotoFakeSMS.setImageResource(R.mipmap.ic_user);
+            }
             assert inputStream != null;
 
 

@@ -125,6 +125,10 @@ public class FakeCallFragment extends Fragment {
             if(inputStream != null){
                 inputStream.close();
             }
+            if(inputStream == null){
+                photo = null;
+                ivPhoto.setImageResource(R.mipmap.ic_user);
+            }
             assert inputStream != null;
 
 
