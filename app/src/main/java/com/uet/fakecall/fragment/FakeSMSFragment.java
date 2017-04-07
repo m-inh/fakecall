@@ -38,7 +38,7 @@ public class FakeSMSFragment extends Fragment {
     private static final String NAME_FAKE = "name";
     private static final String NUMBER_FAKE = "phone";
     private static final String MESS_FAKE = "message";
-    private static final int REQUEST_CODE_PICK_CONTACTS = 1234234;
+    private static final int REQUEST_CODE_PICK_CONTACTS = 12;
     private static final String TAG = "FakeSMSFragment";
 
     private Uri uriContact;
