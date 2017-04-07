@@ -41,9 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/number_hint"
+            android:inputType="phone"
             android:textColor="@color/colorText"
-            android:textColorHint="@android:color/darker_gray"
-            android:inputType="phone"/>
+            android:textColorHint="@android:color/darker_gray" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -62,21 +62,56 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/edt_layout_time"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColorHint="@android:color/darker_gray">
+
+            <EditText
+                android:id="@+id/edt_time_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Schedule at"
+                android:inputType="number"
+                android:textColor="@color/colorText"
+                android:textColorHint="@android:color/darker_gray" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:id="@+id/btn_time_picker"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent" />
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="@android:color/darker_gray">
+        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/edt_time_picker"
-            android:layout_width="match_parent"
+        <RadioButton
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Sent after (second)"
-            android:inputType="number"
-            android:textColor="@color/colorText"
-            android:textColorHint="@android:color/darker_gray" />
+            android:layout_weight="1"
+            android:buttonTint="@color/colorPrimary"
+            android:text="Receive"
+            android:textColor="@android:color/black" />
 
-    </android.support.design.widget.TextInputLayout>
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/colorPrimary"
+            android:text="Sent"
+            android:textColor="@android:color/black" />
+    </RadioGroup>
 
 
     <TableRow

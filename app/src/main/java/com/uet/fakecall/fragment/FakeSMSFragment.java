@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.Telephony;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,17 +25,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.uet.fakecall.R;
 import com.uet.fakecall.broadcast.FakeSMSReceiver;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import static android.content.Context.ALARM_SERVICE;
 
-public class FakeSMSFragment extends Fragment {
+public class FakeSMSFragment extends Fragment implements TimePickerDialog.OnTimeSetListener {
     private static final String NAME_FAKE = "name";
     private static final String NUMBER_FAKE = "phone";
     private static final String MESS_FAKE = "message";
@@ -51,14 +60,21 @@ public class FakeSMSFragment extends Fragment {
     private Button btnLoadContact;
     private Button btnMakeSMS;
     private EditText edtContentMess;
+
+    private RadioGroup rgType;
+
     private ImageView ivPhotoFakeSMS;
     private Bitmap photo;
 
+    private String typeSchedule;
+
+    private String name;
     private String body;
     private String sender;
     private long timeMilis;
 
-    public FakeSMSFragment() {}
+    public FakeSMSFragment() {
+    }
 
     @Nullable
     @Override
@@ -72,6 +88,28 @@ public class FakeSMSFragment extends Fragment {
         edtTimePicker = (EditText) view.findViewById(R.id.edt_time_picker);
         btnLoadContact = (Button) view.findViewById(R.id.btn_load_contact_sms);
         ivPhotoFakeSMS = (ImageView) view.findViewById(R.id.iv_photo_fake_sms);
+
+        View btnTimePicker = view.findViewById(R.id.btn_time_picker);
+
+        edtTimePicker.setEnabled(false);
+
+        rgType = (RadioGroup) view.findViewById(R.id.rg_type);
+
+        // show time picker
+        btnTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                int h = now.get(Calendar.HOUR_OF_DAY);
+                int m = now.get(Calendar.MINUTE);
+                int s = now.get(Calendar.SECOND);
+                TimePickerDialog timePicker = TimePickerDialog.newInstance(FakeSMSFragment.this, h, m, s, true);
+
+                timePicker.setMinTime(h, m, s);
+                timePicker.show(getActivity().getFragmentManager(), "timepickerdialog");
+            }
+        });
+
         btnLoadContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,38 +120,43 @@ public class FakeSMSFragment extends Fragment {
 
         edtContentMess = (EditText) view.findViewById(R.id.edt_mess);
 
+        rgType.setEnabled(true);
+        RadioButton rbType = (RadioButton) view.findViewById(rgType.getChildAt(0).getId());
+        rbType.setChecked(true);
+
+        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                Log.d(TAG, checkedId + "");
+            }
+        });
+
         btnMakeSMS = (Button) view.findViewById(R.id.btn_make_sms);
         btnMakeSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (edtSMSerPhone.getText().toString().equals("")) {
-                    Toast.makeText(contextOfApplication, "Number Phone cant be empty!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(contextOfApplication, "Number phone can't be empty!!!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (edtContentMess.getText().toString().equals("")) {
-                    Toast.makeText(contextOfApplication, "Mess cant be empty!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(contextOfApplication, "Message can't be empty!!!", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if (edtTimePicker.getText().toString().equals("")) {
-                    Toast.makeText(contextOfApplication, "Please enter time!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(contextOfApplication, "Please select time!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                long timeScheduleAt = System.currentTimeMillis() + Long.parseLong(edtTimePicker.getText().toString()) * 1000;
-                int fakeSMSID = (int) System.currentTimeMillis();
 
-                Intent mIntent = new Intent(contextOfApplication, FakeSMSReceiver.class);
-                mIntent.putExtra(NAME_FAKE, edtSMSerName.getText().toString());
-                mIntent.putExtra(NUMBER_FAKE, edtSMSerPhone.getText().toString());
-                mIntent.putExtra(MESS_FAKE, edtContentMess.getText().toString());
-                mIntent.putExtra(FakeCallFragment.FAKE_PHOTO, photo);
+                RadioButton rbType = (RadioButton) view.findViewById(rgType.getCheckedRadioButtonId());
 
-                PendingIntent pi = PendingIntent.getBroadcast(contextOfApplication, fakeSMSID, mIntent, PendingIntent.FLAG_ONE_SHOT);
-                AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, timeScheduleAt, pi);
+                typeSchedule = rbType.getText().toString();
 
-                checkAppAndScheduleSms(edtContentMess.getText().toString(), edtSMSerPhone.getText().toString(), timeScheduleAt);
-
-                Toast.makeText(contextOfApplication, "Fake sms scheduled", Toast.LENGTH_SHORT).show();
+                checkAppAndScheduleSms(
+                        edtSMSerName.getText().toString(),
+                        edtContentMess.getText().toString(),
+                        edtSMSerPhone.getText().toString(),
+                        timeMilis);
 
                 edtSMSerName.setText("");
                 edtContentMess.setText("");
@@ -145,14 +188,15 @@ public class FakeSMSFragment extends Fragment {
                 if (Telephony.Sms.getDefaultSmsPackage(getActivity()).equals(myPackageName)) {
 
                     //Write to the default sms app
-                    writeSms(body, sender, timeMilis);
+                    writeSms(name, body, sender, timeMilis);
                 }
             }
         }
     }
 
-    private void checkAppAndScheduleSms(String body, String sender, long timeMilis) {
+    private void checkAppAndScheduleSms(String name, String body, String sender, long timeMilis) {
 
+        this.name = name;
         this.body = body;
         this.sender = sender;
         this.timeMilis = timeMilis;
@@ -168,12 +212,38 @@ public class FakeSMSFragment extends Fragment {
             startActivityForResult(intent, 1);
         } else {
             //Write the sms
-            writeSms(body, sender, timeMilis);
+            writeSms(name, body, sender, timeMilis);
         }
     }
 
     //Write the sms
-    private void writeSms(String message, String phoneNumber, long timeMilis) {
+    private void writeSms(String nameSender, String message, String phoneNumber, long timeMilis) {
+
+        // push notification
+        int fakeSMSID = (int) System.currentTimeMillis();
+        Intent mIntent = new Intent(contextOfApplication, FakeSMSReceiver.class);
+        mIntent.putExtra(NAME_FAKE, nameSender);
+        mIntent.putExtra(NUMBER_FAKE, phoneNumber);
+        mIntent.putExtra(MESS_FAKE, message);
+        mIntent.putExtra(FakeCallFragment.FAKE_PHOTO, photo);
+
+        PendingIntent pi = PendingIntent.getBroadcast(contextOfApplication, fakeSMSID, mIntent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeMilis, pi);
+
+        // write to db
+        Uri dbUri;
+        if (typeSchedule.equalsIgnoreCase("sent")) {
+            // uri for sent
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                dbUri = Telephony.Sms.Sent.CONTENT_URI;
+            else dbUri = Uri.parse("content://sms/sent");
+        } else {
+            // uri for receive
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                dbUri = Telephony.Sms.Inbox.CONTENT_URI;
+            else dbUri = Uri.parse("content://sms/inbox");
+        }
 
         //Put content values
         ContentValues values = new ContentValues();
@@ -183,10 +253,9 @@ public class FakeSMSFragment extends Fragment {
         values.put("read", 0);
 
         // insert sms to db
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            getActivity().getContentResolver().insert(Telephony.Sms.Inbox.CONTENT_URI, values);
-        else getActivity().getContentResolver().insert(Uri.parse("content://sms/inbox"), values);
+        getActivity().getContentResolver().insert(dbUri, values);
 
+        Toast.makeText(contextOfApplication, "Fake sms scheduled", Toast.LENGTH_SHORT).show();
     }
 
     private void retrieveContactNumber() {
@@ -270,5 +339,28 @@ public class FakeSMSFragment extends Fragment {
 
     }
 
+    @Override
+    public void onTimeSet(TimePickerDialog view, int h, int m, int s) {
+        Calendar now = Calendar.getInstance();
 
+        Log.d(TAG, now.getTime().toString());
+
+        now.set(now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DATE),
+                h,
+                m);
+        now.getTimeInMillis();
+
+        Log.d(TAG, now.getTime().toString());
+
+        String timeScheduleAt = String.format(
+                "%02d:%02d:%02d",
+                now.get(Calendar.HOUR_OF_DAY),
+                now.get(Calendar.MINUTE),
+                now.get(Calendar.SECOND));
+        edtTimePicker.setText(timeScheduleAt);
+
+        timeMilis = now.getTimeInMillis();
+    }
 }
