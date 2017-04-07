@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.Telephony;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +38,8 @@ public class FakeSMSFragment extends Fragment {
     private static final String NAME_FAKE = "name";
     private static final String NUMBER_FAKE = "phone";
     private static final String MESS_FAKE = "message";
-    private static final int REQUEST_CODE_PICK_CONTACTS = 1;
+    private static final int REQUEST_CODE_PICK_CONTACTS = 1234234;
+    private static final String TAG = "FakeSMSFragment";
 
     private Uri uriContact;
     private String contactID;
@@ -49,9 +54,11 @@ public class FakeSMSFragment extends Fragment {
     private ImageView ivPhotoFakeSMS;
     private Bitmap photo;
 
-    public FakeSMSFragment() {
+    private String body;
+    private String sender;
+    private long timeMilis;
 
-    }
+    public FakeSMSFragment() {}
 
     @Nullable
     @Override
@@ -83,11 +90,11 @@ public class FakeSMSFragment extends Fragment {
                     Toast.makeText(contextOfApplication, "Number Phone cant be empty!!!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(edtContentMess.getText().toString().equals("")){
+                if (edtContentMess.getText().toString().equals("")) {
                     Toast.makeText(contextOfApplication, "Mess cant be empty!!!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (edtTimePicker.getText().toString().equals("")){
+                if (edtTimePicker.getText().toString().equals("")) {
                     Toast.makeText(contextOfApplication, "Please enter time!", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -98,11 +105,13 @@ public class FakeSMSFragment extends Fragment {
                 mIntent.putExtra(NAME_FAKE, edtSMSerName.getText().toString());
                 mIntent.putExtra(NUMBER_FAKE, edtSMSerPhone.getText().toString());
                 mIntent.putExtra(MESS_FAKE, edtContentMess.getText().toString());
-                mIntent.putExtra(FakeCallFragment.FAKE_PHOTO,photo);
+                mIntent.putExtra(FakeCallFragment.FAKE_PHOTO, photo);
 
                 PendingIntent pi = PendingIntent.getBroadcast(contextOfApplication, fakeSMSID, mIntent, PendingIntent.FLAG_ONE_SHOT);
                 AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, timeScheduleAt, pi);
+
+                checkAppAndScheduleSms(edtContentMess.getText().toString(), edtSMSerPhone.getText().toString(), timeScheduleAt);
 
                 Toast.makeText(contextOfApplication, "Fake sms scheduled", Toast.LENGTH_SHORT).show();
 
@@ -127,6 +136,57 @@ public class FakeSMSFragment extends Fragment {
             retrieveContactName();
             retrieveContactPhoto();
         }
+
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == Activity.RESULT_OK) {
+
+                final String myPackageName = getActivity().getPackageName();
+                if (Telephony.Sms.getDefaultSmsPackage(getActivity()).equals(myPackageName)) {
+
+                    //Write to the default sms app
+                    writeSms(body, sender, timeMilis);
+                }
+            }
+        }
+    }
+
+    private void checkAppAndScheduleSms(String body, String sender, long timeMilis) {
+
+        this.body = body;
+        this.sender = sender;
+        this.timeMilis = timeMilis;
+
+        //Get my package name
+        final String myPackageName = getActivity().getPackageName();
+
+        //Check if my app is the default sms app
+        if (!Telephony.Sms.getDefaultSmsPackage(getActivity()).equals(myPackageName)) {
+            //Change the default sms app to my app
+            Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+            intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, getActivity().getPackageName());
+            startActivityForResult(intent, 1);
+        } else {
+            //Write the sms
+            writeSms(body, sender, timeMilis);
+        }
+    }
+
+    //Write the sms
+    private void writeSms(String message, String phoneNumber, long timeMilis) {
+
+        //Put content values
+        ContentValues values = new ContentValues();
+        values.put("address", phoneNumber);
+        values.put("date", timeMilis);
+        values.put("body", message);
+        values.put("read", 0);
+
+        // insert sms to db
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            getActivity().getContentResolver().insert(Telephony.Sms.Inbox.CONTENT_URI, values);
+        else getActivity().getContentResolver().insert(Uri.parse("content://sms/inbox"), values);
+
     }
 
     private void retrieveContactNumber() {
@@ -187,17 +247,17 @@ public class FakeSMSFragment extends Fragment {
 
             if (inputStream != null) {
                 photo = BitmapFactory.decodeStream(inputStream);
-                if(photo!=null){
+                if (photo != null) {
                     ivPhotoFakeSMS.setImageBitmap(photo);
-                }else {
+                } else {
                     ivPhotoFakeSMS.setImageResource(R.mipmap.ic_user);
                 }
 
             }
-            if(inputStream!=null){
+            if (inputStream != null) {
                 inputStream.close();
             }
-            if(inputStream == null){
+            if (inputStream == null) {
                 photo = null;
                 ivPhotoFakeSMS.setImageResource(R.mipmap.ic_user);
             }
